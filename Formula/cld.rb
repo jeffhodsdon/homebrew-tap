@@ -35,6 +35,15 @@ class Cld < Formula
 
   def caveats
     <<~EOS
+      cld requires Full Disk Access to read the Messages database.
+
+      Grant access to the cld binary:
+        1. Open System Settings > Privacy & Security > Full Disk Access
+        2. Click + and add: #{opt_bin}/cld
+
+      Run health checks to verify setup:
+        cld status
+
       To start cld as a background service:
         brew services start cld
 
