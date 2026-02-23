@@ -22,8 +22,16 @@ class Cld < Formula
     (var/"log").mkpath
   end
 
+  def post_install
+    # Copy binary to stable path so FDA grant survives brew upgrade.
+    # The Cellar path changes every version; var/cld/cld does not.
+    cp bin/"cld", var/"cld/cld"
+    system "codesign", "--force", "--sign", "-",
+           "--identifier", "com.cld.cld", var/"cld/cld"
+  end
+
   service do
-    run opt_bin/"cld"
+    run var/"cld/cld"
     keep_alive true
     process_type :background
     log_path var/"log/cld.log"
@@ -37,9 +45,9 @@ class Cld < Formula
     <<~EOS
       cld requires Full Disk Access to read the Messages database.
 
-      Grant access to the cld binary:
+      Grant access once (persists across upgrades):
         1. Open System Settings > Privacy & Security > Full Disk Access
-        2. Click + and add: #{opt_bin}/cld
+        2. Click + and add: #{var}/cld/cld
 
       Run health checks to verify setup:
         cld status
