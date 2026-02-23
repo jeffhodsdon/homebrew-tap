@@ -18,6 +18,8 @@ class Cld < Formula
 
   def install
     bin.install "cld"
+    (var/"cld").mkpath
+    (var/"log").mkpath
   end
 
   service do
