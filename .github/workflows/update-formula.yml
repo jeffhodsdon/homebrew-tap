@@ -1,0 +1,37 @@
+name: Update Formula
+
+on:
+  repository_dispatch:
+    types: [update-formula]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update formula
+        env:
+          SHA: ${{ github.event.client_payload.sha }}
+        run: |
+          SHORT_SHA="${SHA:0:7}"
+          BASE_URL="https://github.com/jeffhodsdon/cld/releases/download/latest"
+
+          curl -sL "${BASE_URL}/cld-aarch64-apple-darwin.tar.gz" -o arm64.tar.gz
+          curl -sL "${BASE_URL}/cld-x86_64-apple-darwin.tar.gz" -o x86_64.tar.gz
+
+          SHA_ARM64=$(sha256sum arm64.tar.gz | cut -d' ' -f1)
+          SHA_X86_64=$(sha256sum x86_64.tar.gz | cut -d' ' -f1)
+
+          sed -i "s/version \".*\"/version \"0.1.0-${SHORT_SHA}\"/" Formula/cld.rb
+          sed -i "0,/sha256 \".*\"/{s/sha256 \".*\"/sha256 \"${SHA_ARM64}\"/}" Formula/cld.rb
+          sed -i "/sha256 \"${SHA_ARM64}\"/!{0,/sha256 \".*\"/{s/sha256 \".*\"/sha256 \"${SHA_X86_64}\"/}}" Formula/cld.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet Formula/cld.rb && exit 0
+          git add Formula/cld.rb
+          git commit -m "Update cld to ${SHA:0:7}"
+          git push
