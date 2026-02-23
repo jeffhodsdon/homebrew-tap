@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TAP_PUSH_TOKEN }}
 
       - name: Update formula
         env:
@@ -28,6 +30,8 @@ jobs:
           sed -i "/sha256 \"${SHA_ARM64}\"/!{0,/sha256 \".*\"/{s/sha256 \".*\"/sha256 \"${SHA_X86_64}\"/}}" Formula/cld.rb
 
       - name: Commit and push
+        env:
+          SHA: ${{ github.event.client_payload.sha }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
