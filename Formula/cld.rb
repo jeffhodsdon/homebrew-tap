@@ -29,7 +29,7 @@ class Cld < Formula
     log_path var/"log/cld.log"
     error_log_path var/"log/cld.err.log"
     working_dir var/"cld"
-    environment_variables HOME: Dir.home, PATH: std_service_path_env
+    environment_variables HOME: Dir.home, PATH: "#{Dir.home}/.local/bin:#{std_service_path_env}"
     restart_delay 10
   end
 
