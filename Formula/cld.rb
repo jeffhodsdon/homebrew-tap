@@ -25,6 +25,7 @@ class Cld < Formula
   def post_install
     # Copy binary to stable path so FDA grant survives brew upgrade.
     # The Cellar path changes every version; var/cld/cld does not.
+    rm_f var/"cld/cld"
     cp bin/"cld", var/"cld/cld"
     system "codesign", "--force", "--sign", "-",
            "--identifier", "com.cld.cld", var/"cld/cld"
