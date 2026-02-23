@@ -7,12 +7,12 @@ class Cld < Formula
   on_macos do
     on_arm do
       url "https://github.com/jeffhodsdon/cld/releases/download/latest/cld-aarch64-apple-darwin.tar.gz"
-      sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+      sha256 "93003f38e087377fe7e4529331bae761fe2b50e2e79485e41f9e42d89723d18f"
     end
 
     on_intel do
       url "https://github.com/jeffhodsdon/cld/releases/download/latest/cld-x86_64-apple-darwin.tar.gz"
-      sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+      sha256 "1e61e608ebd3d5ce95ca44ad5cc8639f84917fc8e539354d5ce054970093ce61"
     end
   end
 
