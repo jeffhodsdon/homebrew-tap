@@ -1,18 +1,18 @@
 class Cld < Formula
   desc "iMessage + Claude CLI personal assistant daemon"
   homepage "https://github.com/jeffhodsdon/cld"
-  version "0.1.37"
+  version "0.1.38"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/jeffhodsdon/cld/releases/download/latest/cld-aarch64-apple-darwin.tar.gz"
-      sha256 "57fdc6468e1a96f3cb5abb6875e05df867d623327d8ed91864455b27b661cdf3"
+      sha256 "071f01b392980db179343dc86884eb32a317bcb02bbaa55557d46673b8b51448"
     end
 
     on_intel do
       url "https://github.com/jeffhodsdon/cld/releases/download/latest/cld-x86_64-apple-darwin.tar.gz"
-      sha256 "23113d8e9c728b4fb601c470935153dba5d83867d3a2f4d983a1be353f554f4c"
+      sha256 "acd4e2ff884e5953fd645b50de94e12547194dd3237bea37eaa18e04afa883e5"
     end
   end
 
